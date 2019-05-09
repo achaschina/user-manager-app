@@ -1,0 +1,27 @@
+.main-container {
+  height: 100vh;
+}
+.mat-drawer {
+  background: #2a282a;
+}
+.mat-drawer-content {
+  background: #f3eff3;
+}
+
+.mat-icon {
+  color: #f3eff3;
+}
+
+.active {
+  background: #0D9EFF;
+}
+
+::ng-deep .mat-list-item {
+  height:5rem !important;
+}
+::ng-deep .mat-list-item-content {
+  justify-content: center !important;
+}
+.mat-list-base {
+  padding-top: 0px;
+}

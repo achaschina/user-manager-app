@@ -1,0 +1,113 @@
+<h3 class="mb-3">Create user</h3>
+<h4 class="mb-1">Address information</h4>
+
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col">
+      <form [formGroup]="addressForm" novalidate>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Address type" formControlName="addressType">
+                <mat-option *ngFor="let type of addressTypes" [value]="type.name">
+                  {{ type.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addressForm.controls['addressType'].hasError('required')">
+                Address type is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Address" formControlName="address">
+              <mat-error *ngIf="addressForm.controls['address'].hasError('required')">
+                Address is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" *ngIf="hasUnitNumber">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <textarea matInput placeholder="Address 2" formControlName="address2"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="City" formControlName="city">
+              <mat-error *ngIf="addressForm.controls['city'].hasError('required')">
+                City is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Country" formControlName="countryFormControl">
+                <mat-option *ngFor="let country of countries" [value]="country.name">
+                  {{ country.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addressForm.controls['countryFormControl'].hasError('required')">
+                Country is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput #postalCode maxlength="5" placeholder="Postal Code" type="number" formControlName="postalCode">
+              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <button mat-button (click)="addNewAddress()" class="mb-2" [disabled]="addressForm.invalid">Add another adress</button>
+        <table *ngIf="data.length>0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+
+          <ng-container matColumnDef="addressType">
+            <th mat-header-cell *matHeaderCellDef> Address type </th>
+            <td mat-cell *matCellDef="let element"> {{element.addressType}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="addressLine">
+            <th mat-header-cell *matHeaderCellDef> Address Line </th>
+            <td mat-cell *matCellDef="let element"> {{element.addressLine}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef> City </th>
+            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="country">
+            <th mat-header-cell *matHeaderCellDef> Country </th>
+            <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="postalCode">
+            <th mat-header-cell *matHeaderCellDef> Postal Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.postalCode}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </form>
+      <div class="mt-2">
+        <button mat-raised-button [routerLink]="['/create-user']" class="mr-2">
+          Previous
+        </button>
+        <button mat-raised-button color="primary" [routerLink]="['/create-user', 'common-info']" [disabled]="addressForm.invalid&&!dataSource.data.length" (click)="goNext()">
+          Next
+        </button>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>
