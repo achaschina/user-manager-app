@@ -1,0 +1,101 @@
+<div mat-dialog-content>
+    <p>Update user: </p>
+    <form *ngIf="!itsNewAddress">
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Address Type" [(ngModel)]="data.currentAddress.addressType" name="addressType">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Country" [(ngModel)]="data.currentAddress.country" name="country">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="City" name="city" [(ngModel)]="data.currentAddress.city" >
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Postal Code" name="postalCode" [(ngModel)]="data.currentAddress.postalCode">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Address Line" name="addressLine" [(ngModel)]="data.currentAddress.addressLine">
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <form *ngIf="itsNewAddress">
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Address type" name="addressType" [(ngModel)]="data.currentAddress.addressType" #addressType="ngModel" required>
+              <mat-option *ngFor="let type of addressTypes" [value]="type.name">
+                {{ type.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="addressType.invalid && (addressType.dirty || addressType.touched)">
+              Address type is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Address" name="addressLine" [(ngModel)]="data.currentAddress.addressLine" #addressLine="ngModel" required>
+            <mat-error *ngIf="addressLine.invalid && (addressLine.dirty || addressLine.touched)">
+              Address is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="City" name="city" [(ngModel)]="data.currentAddress.city" #city="ngModel" required minlength="4">
+            <mat-error *ngIf="city.invalid && (city.dirty || city.touched)">
+              City is <strong>required</strong>
+            </mat-error>
+            <!-- <mat-error *ngIf="city.errors.minlength">
+                Name must be <strong>at least 4 characters</strong> long.
+            </mat-error> -->
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Country" name="country" [(ngModel)]="data.currentAddress.country" #country="ngModel" required>
+              <mat-option *ngFor="let country of countries" [value]="country.name">
+                {{ country.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="country.invalid && (country.dirty || country.touched)">
+              Country is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput maxlength="5" placeholder="Postal Code" type="number" name="postalCode" [(ngModel)]="data.currentAddress.postalCode" #postalCode="ngModel">
+            <!-- <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint> -->
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <button mat-button (click)="addNewAddress()" class="mb-2" [disabled]="addressForm.invalid">Add another adress</button> -->
+    </form>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.currentAddress" cdkFocusInitial>Ok</button>
+  </div>

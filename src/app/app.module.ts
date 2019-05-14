@@ -11,7 +11,9 @@ import { MatSidenavModule,
          MatSelectModule,
          MatRadioModule,
          MatCardModule,
-         MatTableModule } from '@angular/material';
+         MatTableModule,
+        MatDialogModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { UserSearchComponent } from './user-search/user-search.component';
@@ -21,6 +23,9 @@ import { MainInfoComponent } from './user-create/main-info/main-info.component';
 import { CommonInfoComponent } from './user-create/common-info/common-info.component';
 import { AddressInfoComponent } from './user-create/address-info/address-info.component';
 import { MainInfoSharingService } from 'src/services/main-info-sharing.service';
+import { AppDialogAreYouSureComponent } from './user-search/user-search.component';
+import { AppDialogUpdateComponent } from './user-search/user-search.component';
+import { AppDialogUpdateAddressComponent } from './user-search/user-search.component';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
@@ -38,10 +43,14 @@ const appRoutes: Routes = [
     DashboardComponent,
     MainInfoComponent,
     CommonInfoComponent,
-    AddressInfoComponent
+    AddressInfoComponent,
+    AppDialogAreYouSureComponent,
+    AppDialogUpdateComponent,
+    AppDialogUpdateAddressComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatSidenavModule,
@@ -53,11 +62,18 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    FormsModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
+  ],
+  entryComponents: [
+    AppDialogAreYouSureComponent,
+    AppDialogUpdateComponent,
+    AppDialogUpdateAddressComponent
   ],
   providers: [MainInfoSharingService],
   bootstrap: [AppComponent]

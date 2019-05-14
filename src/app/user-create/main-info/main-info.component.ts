@@ -49,6 +49,7 @@ export class MainInfoComponent implements OnInit {
 
   goNext() {
     const user = {
+      id: '',
       email: this.newUserFormGroup.controls.emailFormControl.value,
       firstName: this.newUserFormGroup.controls.firstNameFormControl.value,
       lastName: this.newUserFormGroup.controls.lastNameFormControl.value,

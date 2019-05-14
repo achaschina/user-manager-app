@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import data from './coutries.js';
+import dataCountries from '../../../services/coutries.js';
 import { MatTableDataSource } from '@angular/material';
 import { MainInfoSharingService } from 'src/services/main-info-sharing.service';
 import { Address } from 'src/models/Address.js';
@@ -17,7 +17,7 @@ export class AddressInfoComponent implements OnInit {
   ];
 
   currentAddress;
-  data: Address[] = [];
+  data:Address[] = [];
 
   displayedColumns: string[] = ['addressType', 'addressLine', 'city', 'country', 'postalCode'];
   dataSource = new MatTableDataSource(this.data);
@@ -26,13 +26,12 @@ export class AddressInfoComponent implements OnInit {
 
   hasUnitNumber = false;
 
-  countries = data;
+  countries = dataCountries;
 
   constructor(private fb: FormBuilder, private mainInfoService: MainInfoSharingService) { }
 
   ngOnInit() {
     this.formInit();
-    console.log(this.mainInfoService.userInfo)
   }
 
   formInit() {
@@ -50,7 +49,7 @@ export class AddressInfoComponent implements OnInit {
   goNext() {
     this.newAddress();
     this.mainInfoService.adressInfo.push(this.currentAddress);
-    console.log(this.mainInfoService.adressInfo, this.addressForm.controls.countryFormControl)
+    console.log(this.mainInfoService.adressInfo, 'new address')
   }
 
   addNewAddress() {
@@ -59,11 +58,12 @@ export class AddressInfoComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.data);
     this.formInit();
     this.mainInfoService.adressInfo.push(this.currentAddress);
-    console.log(this.dataSource)
+    console.log(this.mainInfoService.adressInfo, 'new address')
   }
 
   newAddress() {
     this.currentAddress = {
+      addressId: Math.floor(Math.random() * Math.floor(10000000)).toString(),
       addressType: this.addressForm.controls.addressType.value,
       country: this.addressForm.controls.countryFormControl.value,
       city: this.addressForm.controls.city.value,

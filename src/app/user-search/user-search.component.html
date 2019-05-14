@@ -1,3 +1,127 @@
-<p>
-  user-search works!
-</p>
+<h3 class="mb-3">Seach form</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col">
+      <form [formGroup]="searchForm" novalidate>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="First Name" formControlName="firstName">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Last Name" formControlName="lastName">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="User Name" formControlName="username">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Phone" formControlName="phone">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="mt-2">
+            <button mat-raised-button class="mr-2" (click)="cansel()">
+              Cansel
+            </button>
+            <button mat-raised-button color="primary" (click)="find()">
+              Find
+            </button>
+          </div>
+      </form>
+      <table *ngIf="data.length>0" mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-4" style="width: 100%;">
+
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef> First Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef> Last Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userName">
+          <th mat-header-cell *matHeaderCellDef> User Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef> Phone </th>
+          <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> action </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button (click)="updateUser($event, element)" class="mr-4">update</button>
+            <button mat-raised-button (click)="deleteUser($event, element._id)">delete</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getAddress(row)"></tr>
+      </table>
+      <table *ngIf="addressData.length>0" mat-table [dataSource]="addressDataSource" class="mat-elevation-z8 mt-4" style="width: 100%;">
+
+        <ng-container matColumnDef="addressType">
+          <th mat-header-cell *matHeaderCellDef> Address Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.addressType}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef> Country </th>
+          <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef> City </th>
+          <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="postalCode">
+          <th mat-header-cell *matHeaderCellDef> Postal Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.postalCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="addressLine">
+          <th mat-header-cell *matHeaderCellDef> Address Line </th>
+          <td mat-cell *matCellDef="let element"> {{element.addressLine}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> action </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button class="mr-4" (click)="updateAddress($event, element)">update</button>
+            <button mat-raised-button (click)="deleteAddress($event, element)">delete</button>
+            <button mat-raised-button (click)="addNewAddress($event, element)">add new</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="addressDisplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: addressDisplayedColumns;"></tr>
+      </table>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

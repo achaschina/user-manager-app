@@ -1,4 +1,4 @@
-const data = [
+const dataCountries = [
   {name: 'Afghanistan', code: 'AF'},
   {name: 'Åland Islands', code: 'AX'},
   {name: 'Albania', code: 'AL'},
@@ -244,4 +244,4 @@ const data = [
   {name: 'Zimbabwe', code: 'ZW'}
 ];
 
-export default data;
+export default dataCountries;
